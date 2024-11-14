@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="브라우저 사이즈를 확인할 수 있습니다!">
+	<meta name="author" content="tenziro.net">
+	<meta name="keywords" content="브라우저, 브라우저사이즈, CSS사이즈, 브라우저높이, 다크모드, 브라우저가변">
+	<meta name="robots" content="index,follow" />
+	<meta name="googlebot" content="index,follow" />
+	<title>브라우저 사이즈 확인하기 :: @tenziro.net</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+KR:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+	<style>
+		@property --w_raw {
+			syntax: '<length>';
+			inherits: true;
+			initial-value: 100vw;
+		}
+
+		@property --h_raw {
+			syntax: '<length>';
+			inherits: true;
+			initial-value: 100vh;
+		}
+
+		:root {
+			--w: tan(atan2(var(--w_raw), 1px));
+			--h: tan(atan2(var(--h_raw), 1px));
+			color-scheme: light dark;
+			--text-color: light-dark(#000, #fff);
+			--bg-color: light-dark(#fff, #313131);
+		}
+
+		@layer reset {
+
+			*,
+			*:before,
+			*:after {
+				box-sizing: border-box;
+			}
+
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		}
+
+		@layer layout {
+
+			html,
+			body {
+				height: 100%;
+			}
+
+			body {
+				color: var(--text-color);
+				background-color: var(--bg-color);
+				transition: color 400ms, background-color 400ms;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: "Montserrat", sans-serif;
+			}
+
+			.indicator {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.indicator::after {
+				content: counter(w) 'X' counter(h);
+				counter-reset: h var(--h) w var(--w);
+				font-size: 3rem;
+				font-weight: 800;
+			}
+
+			.text {
+				font-family: "Noto Sans KR", sans-serif;
+				font-size: 0.75rem;
+				font-weight: 500;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="indicator">
+		<span class="text">🧐 당신의 브라우저 사이즈는</span>
+	</div>
+</body>
+
+</html>
